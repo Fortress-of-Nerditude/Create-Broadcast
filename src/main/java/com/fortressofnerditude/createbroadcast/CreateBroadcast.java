@@ -1,6 +1,7 @@
 package com.fortressofnerditude.createbroadcast;
 
 import com.fortressofnerditude.createbroadcast.block.ModBlocks;
+import com.fortressofnerditude.createbroadcast.item.ModCreativeModeTabs;
 import com.fortressofnerditude.createbroadcast.item.ModItems;
 import net.minecraft.world.item.CreativeModeTabs;
 import org.slf4j.Logger;
@@ -39,6 +40,8 @@ public class CreateBroadcast {
         // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
         NeoForge.EVENT_BUS.register(this);
 
+        ModCreativeModeTabs.register(modEventBus);
+
         ModItems.ITEMS.register(modEventBus);
         ModBlocks.BLOCKS.register(modEventBus);
 
@@ -55,11 +58,7 @@ public class CreateBroadcast {
 
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if(event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
-            event.accept(ModItems.WALKIE);
-            event.accept(ModItems.BRASSANTENNA);
-            event.accept(ModBlocks.TRANSMITTER);
-        }
+
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
