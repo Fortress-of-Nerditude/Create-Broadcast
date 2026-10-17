@@ -11,9 +11,7 @@ public class ModItems {
 
     public static final DeferredItem<Item> WALKIE = ITEMS.register("walkie_talkie",
             () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> ANTENNA = ITEMS.register("antenna",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> BRASSANTENNA = ITEMS.register("brass_antenna",
+    public static final DeferredItem<Item> BRASSANTENNA = ITEMS.register("brass_transmitter",
             () -> new Item(new Item.Properties()));
 
     public static void register(IEventBus eventBus) {

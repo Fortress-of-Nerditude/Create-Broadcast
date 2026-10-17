@@ -1,6 +1,5 @@
 {
   "item.create_broadcast.walkie_talkie": "Walkie Talkie",
-  "item.create_broadcast.antenna": "Antenna",
-  "block.create_broadcast.transmitter": "Transmitter",
-  "item.create_broadcast.brass_antenna": "High-Yield Antenna"
+  "block.create_broadcast.radio_transmitter": "Radio Transmitter",
+  "item.create_broadcast.brass_transmitter": "High-Power Transmitter"
 }

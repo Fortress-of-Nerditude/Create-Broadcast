@@ -57,7 +57,6 @@ public class CreateBroadcast {
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if(event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
             event.accept(ModItems.WALKIE);
-            event.accept(ModItems.ANTENNA);
             event.accept(ModItems.BRASSANTENNA);
             event.accept(ModBlocks.TRANSMITTER);
         }

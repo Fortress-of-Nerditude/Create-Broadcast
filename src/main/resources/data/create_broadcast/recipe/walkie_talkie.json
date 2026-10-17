@@ -6,7 +6,7 @@
       "tag": "c:glass_panes"
     },
     "A": {
-      "item": "create_broadcast:antenna"
+      "item": "create:transmitter"
     },
     "C": {
       "item": "minecraft:copper_ingot"

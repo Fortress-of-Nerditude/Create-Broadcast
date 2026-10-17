@@ -16,7 +16,7 @@ import java.util.function.Supplier;
 public class ModBlocks {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(CreateBroadcast.MODID);
 
-    public static final DeferredBlock<Block> TRANSMITTER = registerBlock("transmitter",
+    public static final DeferredBlock<Block> TRANSMITTER = registerBlock("radio_transmitter",
             () -> new Block(BlockBehaviour.Properties.of()
                     .strength(4f).sound(SoundType.NETHERITE_BLOCK)));
 

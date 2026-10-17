@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "R": {
+      "item":"minecraft:lightning_rod"
+    },
+    "S": {
+      "item": "create:brass_sheet"
+    },
+    "Q": {
+      "item": "create:polished_rose_quartz"
+    }
+  },
+  "pattern": [
+    " R ",
+    "SSS",
+    " Q "
+  ],
+  "result": {
+    "count": 1,
+    "id": "create_broadcast:brass_transmitter"
+  }
+}
