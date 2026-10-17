@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "tag": "c:glass_panes"
+    },
+    "A": {
+      "item": "create_broadcast:antenna"
+    },
+    "C": {
+      "item": "minecraft:copper_ingot"
+    },
+    "B": {
+      "tag": "minecraft:buttons"
+    }
+  },
+  "pattern": [
+    "CAC",
+    "CGC",
+    "BBB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "create_broadcast:walkie_talkie"
+  }
+}
