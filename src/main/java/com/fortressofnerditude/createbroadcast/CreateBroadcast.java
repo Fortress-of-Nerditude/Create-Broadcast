@@ -1,5 +1,6 @@
 package com.fortressofnerditude.createbroadcast;
 
+import com.fortressofnerditude.createbroadcast.block.ModBlocks;
 import com.fortressofnerditude.createbroadcast.item.ModItems;
 import net.minecraft.world.item.CreativeModeTabs;
 import org.slf4j.Logger;
@@ -39,6 +40,7 @@ public class CreateBroadcast {
         NeoForge.EVENT_BUS.register(this);
 
         ModItems.ITEMS.register(modEventBus);
+        ModBlocks.BLOCKS.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
@@ -56,6 +58,7 @@ public class CreateBroadcast {
         if(event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
             event.accept(ModItems.WALKIE);
             event.accept(ModItems.ANTENNA);
+            event.accept(ModBlocks.TRANSMITTER);
         }
     }
 
