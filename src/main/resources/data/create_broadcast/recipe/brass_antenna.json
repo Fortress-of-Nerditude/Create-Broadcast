@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item":"minecraft:gold_ingot"
+    },
+    "B": {
+      "item": "create:brass_ingot"
+    },
+    "R": {
+      "item": "create:rose_quartz"
+    }
+  },
+  "pattern": [
+    "  R",
+    " G ",
+    "B  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "create_broadcast:brass_antenna"
+  }
+}

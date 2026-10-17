@@ -13,6 +13,8 @@ public class ModItems {
             () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> ANTENNA = ITEMS.register("antenna",
             () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> BRASSANTENNA = ITEMS.register("brass_antenna",
+            () -> new Item(new Item.Properties()));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
