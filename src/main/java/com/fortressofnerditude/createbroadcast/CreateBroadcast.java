@@ -1,9 +1,14 @@
 package com.fortressofnerditude.createbroadcast;
 
 import com.fortressofnerditude.createbroadcast.block.ModBlocks;
+import com.fortressofnerditude.createbroadcast.component.ModDataComponents;
 import com.fortressofnerditude.createbroadcast.item.ModCreativeModeTabs;
 import com.fortressofnerditude.createbroadcast.item.ModItems;
+import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.ItemStack;
+import net.neoforged.bus.api.Event;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -45,6 +50,9 @@ public class CreateBroadcast {
         ModItems.ITEMS.register(modEventBus);
         ModBlocks.BLOCKS.register(modEventBus);
 
+
+        ModDataComponents.DATA_COMPONENT_TYPES.register(modEventBus);
+
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
 
@@ -70,9 +78,32 @@ public class CreateBroadcast {
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
     @EventBusSubscriber(modid = CreateBroadcast.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     static class ClientModEvents {
-        @SubscribeEvent
-        static void onClientSetup(FMLClientSetupEvent event) {
 
+        @SubscribeEvent
+        public static void onClientSetup(FMLClientSetupEvent event) {
+            event.enqueueWork(() -> { // ItemProperties#register is not threadsafe, so we need to call it on the main thread
+                ItemProperties.register(
+                        // The item to apply the property to.
+                        ModItems.WALKIE.get(),
+                        // The id of the property.
+                        ResourceLocation.fromNamespaceAndPath("create_broadcast", "active"),
+                        // A reference to a method that calculates the override value.
+                        // Parameters are the used item stack, the level context, the player using the item,
+                        // and a random seed you can use.
+                        (stack, level, player, seed) -> checkActive(stack)
+                );
+            });
+        }
+
+        private static float checkActive(ItemStack stack) {
+            if (stack.get(ModDataComponents.ACTIVE) == null) {
+                stack.set(ModDataComponents.ACTIVE, false);
+            }
+            if (Boolean.TRUE.equals(stack.get(ModDataComponents.ACTIVE))) {
+                return 1.0F;
+            } else {
+                return 0.0F;
+            }
         }
     }
 }

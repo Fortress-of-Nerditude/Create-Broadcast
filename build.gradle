@@ -3,6 +3,7 @@ plugins {
     id 'maven-publish'
     id 'net.neoforged.moddev' version '2.0.148'
     id 'idea'
+    id 'org.jetbrains.kotlin.jvm'
 }
 
 tasks.named('wrapper', Wrapper).configure {
@@ -50,6 +51,7 @@ repositories {
         }
     }
     maven { url = 'https://maven.maxhenkel.de/repository/public' }
+    mavenCentral()
 }
 
 base {
@@ -156,6 +158,7 @@ dependencies {
 
     implementation "de.maxhenkel.voicechat:voicechat-api:${voicechat_api_version}"
     runtimeOnly "curse.maven:voicechat-416089:${voicechat_file_id}"
+    testImplementation 'org.jetbrains.kotlin:kotlin-test'
 
     // Example optional mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
@@ -228,4 +231,7 @@ idea {
         downloadSources = true
         downloadJavadoc = true
     }
+}
+kotlin {
+    jvmToolchain(21)
 }

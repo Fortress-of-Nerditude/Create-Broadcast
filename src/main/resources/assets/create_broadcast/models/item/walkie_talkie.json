@@ -2,5 +2,13 @@
   "parent": "minecraft:item/generated",
   "textures": {
     "layer0": "create_broadcast:item/walkie_talkie"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "create_broadcast:active": 1
+      },
+      "model": "create_broadcast:item/walkie_active"
+    }
+  ]
 }
