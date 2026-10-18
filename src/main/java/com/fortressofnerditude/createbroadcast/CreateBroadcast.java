@@ -4,9 +4,15 @@ import com.fortressofnerditude.createbroadcast.block.ModBlocks;
 import com.fortressofnerditude.createbroadcast.component.ModDataComponents;
 import com.fortressofnerditude.createbroadcast.item.ModCreativeModeTabs;
 import com.fortressofnerditude.createbroadcast.item.ModItems;
+import de.maxhenkel.voicechat.api.VoicechatPlugin;
+import de.maxhenkel.voicechat.api.VoicechatServerApi;
+import de.maxhenkel.voicechat.api.VolumeCategory;
+import de.maxhenkel.voicechat.api.events.EventRegistration;
+import de.maxhenkel.voicechat.api.events.VoicechatServerStartedEvent;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import org.apache.logging.log4j.core.config.plugins.Plugin;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -24,14 +30,32 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 
+import javax.annotation.Nullable;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.net.URL;
+import java.util.Enumeration;
+
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(CreateBroadcast.MODID)
-public class CreateBroadcast {
+public class CreateBroadcast implements VoicechatPlugin {
     // Define mod id in a common place for everything to reference
     public static final String MODID = "create_broadcast";
     // Directly reference a slf4j logger
     public static final Logger LOGGER = LogUtils.getLogger();
+
+    public static String BROADCAST_CATEGORY = "broadcast";
+
+    @Override
+    public void registerEvents(EventRegistration registration) {
+        registration.registerEvent(VoicechatServerStartedEvent.class, this::onServerStarted);
+    }
+
+    @Override
+    public String getPluginId() {
+        return "create_broadcast";
+    }
 
     // The constructor for the mod class is the first code that is run when your mod is loaded.
     // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
@@ -72,6 +96,45 @@ public class CreateBroadcast {
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
 
+    }
+
+    private void onServerStarted(VoicechatServerStartedEvent event) {
+        VoicechatServerApi api = event.getVoicechat();
+        VolumeCategory broadcast = api.volumeCategoryBuilder()
+                .setId(BROADCAST_CATEGORY)
+                .setName("Music discs")
+                .setDescription("The volume of all custom music discs")
+                .setIcon(getIcon("category_music_discs.png"))
+                .build();
+
+        api.registerVolumeCategory(broadcast);
+    }
+
+    @Nullable
+    private int[][] getIcon(String path) {
+        try {
+            Enumeration<URL> resources = Plugin.class.getClassLoader().getResources(path);
+            while (resources.hasMoreElements()) {
+                BufferedImage bufferedImage = ImageIO.read(resources.nextElement().openStream());
+                if (bufferedImage.getWidth() != 16) {
+                    continue;
+                }
+                if (bufferedImage.getHeight() != 16) {
+                    continue;
+                }
+                int[][] image = new int[16][16];
+                for (int x = 0; x < bufferedImage.getWidth(); x++) {
+                    for (int y = 0; y < bufferedImage.getHeight(); y++) {
+                        image[x][y] = bufferedImage.getRGB(x, y);
+                    }
+                }
+                return image;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
