@@ -102,9 +102,9 @@ public class CreateBroadcast implements VoicechatPlugin {
         VoicechatServerApi api = event.getVoicechat();
         VolumeCategory broadcast = api.volumeCategoryBuilder()
                 .setId(BROADCAST_CATEGORY)
-                .setName("Music discs")
-                .setDescription("The volume of all custom music discs")
-                .setIcon(getIcon("category_music_discs.png"))
+                .setName("Broadcasts")
+                .setDescription("The volume of all radio broadcasts & walkie talkies")
+                .setIcon(getIcon("broadcast_icon.png"))
                 .build();
 
         api.registerVolumeCategory(broadcast);
