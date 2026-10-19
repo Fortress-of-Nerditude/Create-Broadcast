@@ -1,5 +1,6 @@
-package com.fortressofnerditude.createbroadcast;
+package com.fortressofnerditude.createbroadcast.VoiceChatManager;
 
+import com.fortressofnerditude.createbroadcast.CreateBroadcast;
 import de.maxhenkel.voicechat.api.*;
 import de.maxhenkel.voicechat.api.events.EventRegistration;
 import de.maxhenkel.voicechat.api.events.VoicechatServerStartedEvent;
