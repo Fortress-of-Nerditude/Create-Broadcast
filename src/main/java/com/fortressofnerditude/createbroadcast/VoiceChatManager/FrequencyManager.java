@@ -14,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 public class FrequencyManager {
@@ -85,8 +86,13 @@ public class FrequencyManager {
         CreateBroadcast.LOGGER.info("sending voice on freq " + frequency);
         Map<Player, AudioChannel> frequencyMap = audioMap.get(frequency);
         byte[] audio = event.getPacket().getOpusEncodedData();
-        for (AudioChannel channel : frequencyMap.values()) {
-            if (channel != null) {
+        for (Map.Entry<Player, AudioChannel> entry : frequencyMap.entrySet()) {
+            Player player = entry.getKey();
+            AudioChannel channel = entry.getValue();
+            CreateBroadcast.LOGGER.info("sender uuid " + talkingPlayer.getUUID());
+            CreateBroadcast.LOGGER.info("receiver uuid " + player.getUUID());
+            if (channel != null && (!Objects.equals(talkingPlayer.getUUID().toString(), player.getUUID().toString()))) {
+                CreateBroadcast.LOGGER.info("audio sent");
                 channel.send(audio);
             };
         }

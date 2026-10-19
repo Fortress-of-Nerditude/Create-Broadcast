@@ -30,13 +30,6 @@ public class WalkieItem extends Item {
     }
 
     @Override
-    public void verifyComponentsAfterLoad(ItemStack item) {
-        item.set(ModDataComponents.ACTIVE, false);
-
-        super.verifyComponentsAfterLoad(item);
-    }
-
-    @Override
     public InteractionResult useOn(UseOnContext context) {
         if (context.getItemInHand().get(ModDataComponents.ACTIVE) == null) {
             context.getItemInHand().set(ModDataComponents.ACTIVE, false);
