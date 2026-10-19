@@ -3,6 +3,7 @@ package com.fortressofnerditude.createbroadcast.VoiceChatManager;
 import com.fortressofnerditude.createbroadcast.CreateBroadcast;
 import de.maxhenkel.voicechat.api.*;
 import de.maxhenkel.voicechat.api.events.EventRegistration;
+import de.maxhenkel.voicechat.api.events.MicrophonePacketEvent;
 import de.maxhenkel.voicechat.api.events.VoicechatServerStartedEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
@@ -33,6 +34,7 @@ public class BroadcastAudioPlugin implements VoicechatPlugin {
     @Override
     public void registerEvents(EventRegistration registration) {
         registration.registerEvent(VoicechatServerStartedEvent.class, this::onServerStarted);
+        registration.registerEvent(MicrophonePacketEvent.class, FrequencyManager::onPlayerTalking);
     }
 
     @SubscribeEvent
