@@ -9,7 +9,7 @@
       "item": "create:transmitter"
     },
     "C": {
-      "item": "minecraft:copper_ingot"
+      "item": "create:andesite_alloy"
     },
     "B": {
       "tag": "minecraft:buttons"
@@ -22,6 +22,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "create_broadcast:walkie_talkie"
+    "id": "create_broadcast:walkie_inactive"
   }
 }

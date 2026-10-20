@@ -10,7 +10,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(CreateBroadcast.MODID);
 
-    public static final DeferredItem<Item> WALKIE = ITEMS.register("walkie_talkie",
+    public static final DeferredItem<Item> WALKIE = ITEMS.register("walkie_inactive",
             () -> new WalkieItem(new Item.Properties()));
     public static final DeferredItem<Item> BRASSANTENNA = ITEMS.register("brass_transmitter",
             () -> new Item(new Item.Properties()));
