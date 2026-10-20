@@ -59,40 +59,28 @@ public class FrequencyManager {
     }
 
     public static void onPlayerTalking(MicrophonePacketEvent event) {
-        CreateBroadcast.LOGGER.info("player talking");
         if (event.getSenderConnection() == null) {
-            CreateBroadcast.LOGGER.info("Sender connection null");
             return;
         }
         if (event.getSenderConnection().getPlayer().getPlayer() instanceof ServerPlayer sender) {
-            CreateBroadcast.LOGGER.info("checking inventory");
             for (int i = 0; i < sender.getInventory().getContainerSize(); i++) {
                 ItemStack currentItem = sender.getInventory().getItem(i);
                 if (currentItem.is(ModItems.WALKIE)) {
-                    CreateBroadcast.LOGGER.info("found walkie");
-                    CreateBroadcast.LOGGER.info("active: " + Boolean.TRUE.equals(currentItem.get(ModDataComponents.ACTIVE)));
                     if (Boolean.TRUE.equals(currentItem.get(ModDataComponents.ACTIVE))) {
-                        CreateBroadcast.LOGGER.info("walkie active");
                         sendVoice(sender, currentItem.get(ModDataComponents.FREQUENCY), event);
                     }
                 }
             }
-        } else {
-            CreateBroadcast.LOGGER.info("Sender is not a player. Sender is a " + event.getSenderConnection().getPlayer().getClass());
         }
     }
 
     public static void sendVoice(Player talkingPlayer, Double frequency, MicrophonePacketEvent event) {
-        CreateBroadcast.LOGGER.info("sending voice on freq " + frequency);
         Map<Player, AudioChannel> frequencyMap = audioMap.get(frequency);
         byte[] audio = event.getPacket().getOpusEncodedData();
         for (Map.Entry<Player, AudioChannel> entry : frequencyMap.entrySet()) {
             Player player = entry.getKey();
             AudioChannel channel = entry.getValue();
-            CreateBroadcast.LOGGER.info("sender uuid " + talkingPlayer.getUUID());
-            CreateBroadcast.LOGGER.info("receiver uuid " + player.getUUID());
             if (channel != null && (!Objects.equals(talkingPlayer.getUUID().toString(), player.getUUID().toString()))) {
-                CreateBroadcast.LOGGER.info("audio sent");
                 channel.send(audio);
             };
         }
