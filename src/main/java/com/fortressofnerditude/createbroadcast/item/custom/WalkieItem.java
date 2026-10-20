@@ -1,21 +1,19 @@
 package com.fortressofnerditude.createbroadcast.item.custom;
 
-import com.fortressofnerditude.createbroadcast.VoiceChatManager.BroadcastAudioPlugin;
-import com.fortressofnerditude.createbroadcast.CreateBroadcast;
 import com.fortressofnerditude.createbroadcast.VoiceChatManager.FrequencyManager;
 import com.fortressofnerditude.createbroadcast.component.ModDataComponents;
-import de.maxhenkel.voicechat.api.VoicechatServerApi;
-import de.maxhenkel.voicechat.api.audiochannel.EntityAudioChannel;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
 
 import java.util.List;
-import java.util.UUID;
 
 public class WalkieItem extends Item {
     public WalkieItem(Properties properties) {
@@ -25,28 +23,37 @@ public class WalkieItem extends Item {
     @Override
     public boolean onDroppedByPlayer(ItemStack item, Player player) {
         item.set(ModDataComponents.ACTIVE, false);
-
         return super.onDroppedByPlayer(item, player);
     }
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
-        if (context.getItemInHand().get(ModDataComponents.ACTIVE) == null) {
-            context.getItemInHand().set(ModDataComponents.ACTIVE, false);
+        playerRightClicked(context.getPlayer(), context.getItemInHand());
+        return InteractionResult.sidedSuccess(context.getLevel().isClientSide());
+    }
+
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+        ItemStack item = player.getItemInHand(hand);
+        playerRightClicked(player, item);
+        return InteractionResultHolder.sidedSuccess(item, level.isClientSide());
+    }
+
+    private void playerRightClicked(Player player, ItemStack item) {
+        if (item.get(ModDataComponents.ACTIVE) == null) {
+            item.set(ModDataComponents.ACTIVE, false);
         }
-        if (context.getItemInHand().get(ModDataComponents.FREQUENCY) == null) {
-            context.getItemInHand().set(ModDataComponents.FREQUENCY, 87.0);
+        if (item.get(ModDataComponents.FREQUENCY) == null) {
+            item.set(ModDataComponents.FREQUENCY, 87.0);
         }
 
-        if (Boolean.TRUE.equals(context.getItemInHand().get(ModDataComponents.ACTIVE))) {
-            context.getItemInHand().set(ModDataComponents.ACTIVE, false);
-            FrequencyManager.tuneOut(context.getPlayer(), context.getItemInHand().get(ModDataComponents.FREQUENCY));
+        if (Boolean.TRUE.equals(item.get(ModDataComponents.ACTIVE))) {
+            item.set(ModDataComponents.ACTIVE, false);
+            FrequencyManager.tuneOut(player, item.get(ModDataComponents.FREQUENCY));
         } else {
-            context.getItemInHand().set(ModDataComponents.ACTIVE, true);
-            FrequencyManager.tuneIn(context.getPlayer(), context.getItemInHand().get(ModDataComponents.FREQUENCY));
+            item.set(ModDataComponents.ACTIVE, true);
+            FrequencyManager.tuneIn(player, item.get(ModDataComponents.FREQUENCY));
         }
-
-        return super.useOn(context);
     }
 
     @Override
