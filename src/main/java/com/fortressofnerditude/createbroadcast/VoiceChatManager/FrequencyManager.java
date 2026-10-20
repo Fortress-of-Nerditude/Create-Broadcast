@@ -1,16 +1,13 @@
 package com.fortressofnerditude.createbroadcast.VoiceChatManager;
 
 import com.fortressofnerditude.createbroadcast.Config;
-import com.fortressofnerditude.createbroadcast.CreateBroadcast;
 import com.fortressofnerditude.createbroadcast.component.ModDataComponents;
 import com.fortressofnerditude.createbroadcast.item.ModItems;
-import com.simibubi.create.Create;
 import de.maxhenkel.voicechat.api.audiochannel.AudioChannel;
 import de.maxhenkel.voicechat.api.audiochannel.EntityAudioChannel;
 import de.maxhenkel.voicechat.api.events.MicrophonePacketEvent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 

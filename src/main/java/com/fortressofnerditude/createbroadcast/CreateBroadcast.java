@@ -4,17 +4,9 @@ import com.fortressofnerditude.createbroadcast.block.ModBlocks;
 import com.fortressofnerditude.createbroadcast.component.ModDataComponents;
 import com.fortressofnerditude.createbroadcast.item.ModCreativeModeTabs;
 import com.fortressofnerditude.createbroadcast.item.ModItems;
-import de.maxhenkel.voicechat.api.VoicechatApi;
-import de.maxhenkel.voicechat.api.VoicechatPlugin;
-import de.maxhenkel.voicechat.api.VoicechatServerApi;
-import de.maxhenkel.voicechat.api.VolumeCategory;
-import de.maxhenkel.voicechat.api.events.EventRegistration;
-import de.maxhenkel.voicechat.api.events.VoicechatServerStartedEvent;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import org.apache.logging.log4j.core.config.plugins.Plugin;
-import org.jline.utils.Log;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -31,13 +23,6 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
-
-import javax.annotation.Nullable;
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.net.URL;
-import java.util.Enumeration;
-import java.util.concurrent.ConcurrentHashMap;
 
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
