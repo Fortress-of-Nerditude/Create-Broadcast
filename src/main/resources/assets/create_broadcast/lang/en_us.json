@@ -2,6 +2,7 @@
   "creativetab.create_broadcast.create_broadcast_tab": "Create: Broadcast",
   "item.create_broadcast.walkie_inactive": "Walkie Talkie",
   "item.create_broadcast.brass_walkie_inactive": "Brass Walkie Talkie",
+  "item.create_broadcast.ender_walkie_inactive": "Ender Walkie Talkie",
   "block.create_broadcast.radio_transmitter": "Radio Transmitter",
   "item.create_broadcast.brass_transmitter": "Brass Transmitter",
   "item.create_broadcast.ender_transmitter": "Ender Transmitter"

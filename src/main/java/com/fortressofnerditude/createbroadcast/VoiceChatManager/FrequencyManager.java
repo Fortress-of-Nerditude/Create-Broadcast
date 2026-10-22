@@ -72,6 +72,10 @@ public class FrequencyManager {
                     if (Boolean.TRUE.equals(currentItem.get(ModDataComponents.ACTIVE))) {
                         sendVoice(sender, currentItem.get(ModDataComponents.FREQUENCY), event, Config.BRASS_WALKIE_RANGE.get());
                     }
+                } else if (currentItem.is(ModItems.ENDER_WALKIE)) {
+                    if (Boolean.TRUE.equals(currentItem.get(ModDataComponents.ACTIVE))) {
+                        sendVoice(sender, currentItem.get(ModDataComponents.FREQUENCY), event, -1);
+                    }
                 }
             }
         }
@@ -89,6 +93,8 @@ public class FrequencyManager {
                 if (Math.abs(sendLocation.x - receiveLocation.x) <= maxRange &&
                 Math.abs(sendLocation.y - receiveLocation.y) <= maxRange &&
                 Math.abs(sendLocation.z - receiveLocation.z) <= maxRange) {
+                    channel.send(audio);
+                } else if (maxRange == -1) {
                     channel.send(audio);
                 }
             };

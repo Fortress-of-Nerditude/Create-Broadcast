@@ -20,7 +20,7 @@ public class FrequencyLifecycleManager {
     public static void playerLoggedInEvent(PlayerEvent.PlayerLoggedInEvent event) {
         for (int i = 0; i < event.getEntity().getInventory().getContainerSize(); i++) {
             ItemStack currentItem = event.getEntity().getInventory().getItem(i);
-            if (currentItem.is(ModItems.WALKIE) || currentItem.is(ModItems.BRASS_WALKIE)) {
+            if (currentItem.is(ModItems.WALKIE) || currentItem.is(ModItems.BRASS_WALKIE) || currentItem.is(ModItems.ENDER_WALKIE)) {
                 currentItem.set(ModDataComponents.ACTIVE, false);
             }
         }
@@ -30,7 +30,7 @@ public class FrequencyLifecycleManager {
     public static void playerLoggedOutEvent(PlayerEvent.PlayerLoggedOutEvent event) {
         for (int i = 0; i < event.getEntity().getInventory().getContainerSize(); i++) {
             ItemStack currentItem = event.getEntity().getInventory().getItem(i);
-            if ((currentItem.is(ModItems.WALKIE) || currentItem.is(ModItems.BRASS_WALKIE)) && Boolean.TRUE.equals(currentItem.get(ModDataComponents.ACTIVE))) {
+            if ((currentItem.is(ModItems.WALKIE) || currentItem.is(ModItems.BRASS_WALKIE) || currentItem.is(ModItems.ENDER_WALKIE)) && Boolean.TRUE.equals(currentItem.get(ModDataComponents.ACTIVE))) {
                 FrequencyManager.tuneOut(event.getEntity(), currentItem.get(ModDataComponents.FREQUENCY));
             }
         }

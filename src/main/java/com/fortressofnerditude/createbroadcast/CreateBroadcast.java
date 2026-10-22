@@ -107,6 +107,18 @@ public class CreateBroadcast {
                         (stack, level, player, seed) -> checkActive(stack)
                 );
             });
+            event.enqueueWork(() -> { // ItemProperties#register is not threadsafe, so we need to call it on the main thread
+                ItemProperties.register(
+                        // The item to apply the property to.
+                        ModItems.ENDER_WALKIE.get(),
+                        // The id of the property.
+                        ResourceLocation.fromNamespaceAndPath("create_broadcast", "active"),
+                        // A reference to a method that calculates the override value.
+                        // Parameters are the used item stack, the level context, the player using the item,
+                        // and a random seed you can use.
+                        (stack, level, player, seed) -> checkActive(stack)
+                );
+            });
         }
 
         private static float checkActive(ItemStack stack) {

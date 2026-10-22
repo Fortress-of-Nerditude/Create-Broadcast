@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "minecraft:nether_star"
+    },
+    "A": {
+      "item": "create_broadcast:ender_transmitter"
+    },
+    "C": {
+      "item": "create:brass_ingot"
+    },
+    "B": {
+      "tag": "minecraft:buttons"
+    },
+    "S": {
+      "item": "create:sturdy_sheet"
+    }
+  },
+  "pattern": [
+    "ASA",
+    "CGC",
+    "BBB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "create_broadcast:ender_walkie_inactive"
+  }
+}

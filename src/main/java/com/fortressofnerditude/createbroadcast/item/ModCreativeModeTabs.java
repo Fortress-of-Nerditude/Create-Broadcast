@@ -22,6 +22,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.BRASSANTENNA);
                         output.accept(ModItems.WALKIE);
                         output.accept(ModItems.BRASS_WALKIE);
+                        output.accept(ModItems.ENDER_WALKIE);
                         output.accept(ModBlocks.TRANSMITTER);
                         output.accept(ModItems.ENDERANTENNA);
                     }).build());
