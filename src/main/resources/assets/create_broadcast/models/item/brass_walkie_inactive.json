@@ -1,0 +1,97 @@
+{
+	"format_version": "26.3",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"1": "create_broadcast:item/walkie_antenna",
+		"2": "create_broadcast:item/brass_walkie_inactive_box",
+		"particle": "create_broadcast:item/brass_walkie_inactive_box"
+	},
+	"elements": [
+		{
+			"from": [3, 0, 7],
+			"to": [13, 13, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [3, 0, 7]},
+			"faces": {
+				"north": {"uv": [0, 0, 5, 6.5], "texture": "#2"},
+				"east": {"uv": [0, 6.5, 1.5, 13], "texture": "#2"},
+				"south": {"uv": [5, 0, 10, 6.5], "texture": "#2"},
+				"west": {"uv": [1.5, 6.5, 3, 13], "texture": "#2"},
+				"up": {"uv": [3, 6.5, 8, 8], "texture": "#2"},
+				"down": {"uv": [3, 8, 8, 9.5], "texture": "#2"}
+			}
+		},
+		{
+			"from": [4, 13, 8],
+			"to": [5, 16, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [4, 13, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 1, 3], "texture": "#1"},
+				"east": {"uv": [1, 0, 2, 3], "texture": "#1"},
+				"south": {"uv": [2, 0, 3, 3], "texture": "#1"},
+				"west": {"uv": [0, 3, 1, 6], "texture": "#1"},
+				"up": {"uv": [3, 0, 4, 1], "texture": "#1"},
+				"down": {"uv": [1, 3, 2, 4], "texture": "#1"}
+			}
+		},
+		{
+			"from": [6, 13, 8],
+			"to": [7, 15, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [6, 13, 8]},
+			"faces": {
+				"north": {"uv": [1, 1, 2, 3], "texture": "#1"},
+				"east": {"uv": [1, 1, 2, 3], "texture": "#1"},
+				"south": {"uv": [0, 1, 1, 3], "texture": "#1"},
+				"west": {"uv": [0, 1, 1, 3], "texture": "#1"},
+				"up": {"uv": [0, 0, 1, 1], "texture": "#1"},
+				"down": {"uv": [0, 1, 1, 2], "texture": "#missing"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [0, 90, 0],
+			"translation": [0, 2.75, 1],
+			"scale": [0.55, 0.55, 0.55]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [0, 90, 0],
+			"translation": [0, 2.75, 1],
+			"scale": [0.55, 0.55, 0.55]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, 90, -10],
+			"translation": [0, 4, 1],
+			"scale": [0.8, 0.8, 0.8]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, 90, -10],
+			"translation": [0, 4, 1],
+			"scale": [0.8, 0.8, 0.8]
+		},
+		"ground": {
+			"translation": [0, 2, 0],
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"gui": {
+			"rotation": [-10, 155, 10],
+			"translation": [0, 0.5, 0.25],
+			"scale": [0.8, 0.8, 0.8]
+		},
+		"head": {
+			"translation": [0, 0, -1],
+			"scale": [0, 0, 0]
+		},
+		"on_shelf": {
+			"rotation": [0, -180, 0],
+			"translation": [0, 0, -2.75]
+		}
+	},
+	"overrides": [
+		{
+			"predicate": {
+				"create_broadcast:active": 1
+			},
+			"model": "create_broadcast:item/brass_walkie_active"
+		}
+	]
+}

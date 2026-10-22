@@ -8,8 +8,12 @@ public class Config {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
     public static final ModConfigSpec.IntValue WALKIE_RANGE = BUILDER
-            .comment("The range Walkie Talkies send their broadcasts")
+            .comment("The range standard Walkie Talkies send their broadcasts")
             .defineInRange("walkieRange", 100, 0, Integer.MAX_VALUE);
+
+    public static final ModConfigSpec.IntValue BRASS_WALKIE_RANGE = BUILDER
+            .comment("The range brass Walkie Talkies send their broadcasts")
+            .defineInRange("brassWalkieRange", 300, 0, Integer.MAX_VALUE);
 
     static final ModConfigSpec SPEC = BUILDER.build();
 }

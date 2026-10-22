@@ -21,6 +21,7 @@ public class ModCreativeModeTabs {
                     .displayItems((ItemDisplayParameters, output) -> {
                         output.accept(ModItems.BRASSANTENNA);
                         output.accept(ModItems.WALKIE);
+                        output.accept(ModItems.BRASS_WALKIE);
                         output.accept(ModBlocks.TRANSMITTER);
                         output.accept(ModItems.ENDERANTENNA);
                     }).build());

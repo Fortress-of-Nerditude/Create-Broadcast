@@ -68,6 +68,10 @@ public class FrequencyManager {
                     if (Boolean.TRUE.equals(currentItem.get(ModDataComponents.ACTIVE))) {
                         sendVoice(sender, currentItem.get(ModDataComponents.FREQUENCY), event, Config.WALKIE_RANGE.get());
                     }
+                } else if (currentItem.is(ModItems.BRASS_WALKIE)) {
+                    if (Boolean.TRUE.equals(currentItem.get(ModDataComponents.ACTIVE))) {
+                        sendVoice(sender, currentItem.get(ModDataComponents.FREQUENCY), event, Config.BRASS_WALKIE_RANGE.get());
+                    }
                 }
             }
         }

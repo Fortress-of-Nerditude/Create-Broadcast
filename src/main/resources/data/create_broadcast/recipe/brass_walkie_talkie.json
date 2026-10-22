@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "tag": "c:glass_panes"
+    },
+    "A": {
+      "item": "create_broadcast:brass_transmitter"
+    },
+    "C": {
+      "item": "create:brass_ingot"
+    },
+    "B": {
+      "tag": "minecraft:buttons"
+    }
+  },
+  "pattern": [
+    "ACA",
+    "CGC",
+    "BBB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "create_broadcast:brass_walkie_inactive"
+  }
+}
