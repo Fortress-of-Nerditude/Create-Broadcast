@@ -22,6 +22,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.BRASSANTENNA);
                         output.accept(ModItems.WALKIE);
                         output.accept(ModBlocks.TRANSMITTER);
+                        output.accept(ModItems.ENDERANTENNA);
                     }).build());
 
     public static void register(IEventBus eventBus) {

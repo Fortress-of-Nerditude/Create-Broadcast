@@ -14,6 +14,8 @@ public class ModItems {
             () -> new WalkieItem(new Item.Properties()));
     public static final DeferredItem<Item> BRASSANTENNA = ITEMS.register("brass_transmitter",
             () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> ENDERANTENNA = ITEMS.register("ender_transmitter",
+            () -> new Item(new Item.Properties()));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

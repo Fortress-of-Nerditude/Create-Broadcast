@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": {
+      "item":"minecraft:ender_pearl"
+    },
+    "S": {
+      "item": "create:sturdy_sheet"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "pattern": [
+    " D ",
+    "SSS",
+    " P "
+  ],
+  "result": {
+    "count": 1,
+    "id": "create_broadcast:ender_transmitter"
+  }
+}
