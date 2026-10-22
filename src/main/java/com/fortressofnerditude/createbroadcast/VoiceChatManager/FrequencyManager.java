@@ -74,7 +74,7 @@ public class FrequencyManager {
                     }
                 } else if (currentItem.is(ModItems.ENDER_WALKIE)) {
                     if (Boolean.TRUE.equals(currentItem.get(ModDataComponents.ACTIVE))) {
-                        sendVoice(sender, currentItem.get(ModDataComponents.FREQUENCY), event, -1);
+                        sendVoice(sender, currentItem.get(ModDataComponents.FREQUENCY), event, Config.ENDER_WALKIE_RANGE.get());
                     }
                 }
             }
