@@ -19,5 +19,9 @@ public class Config {
             .comment("The range ender Walkie Talkies send their broadcasts. -1 for infinite")
             .defineInRange("brassWalkieRange", -1, -1, Integer.MAX_VALUE);
 
+    public static final ModConfigSpec.IntValue TRANSMITTER_AUDIBLE = BUILDER
+            .comment("The range that transmitters listen from")
+            .defineInRange("transmitterAudibleRange", 4, 1, Integer.MAX_VALUE);
+
     static final ModConfigSpec SPEC = BUILDER.build();
 }

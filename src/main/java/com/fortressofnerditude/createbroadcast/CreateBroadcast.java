@@ -1,9 +1,11 @@
 package com.fortressofnerditude.createbroadcast;
 
+import com.fortressofnerditude.createbroadcast.block.ModBlockEntities;
 import com.fortressofnerditude.createbroadcast.block.ModBlocks;
 import com.fortressofnerditude.createbroadcast.component.ModDataComponents;
 import com.fortressofnerditude.createbroadcast.item.ModCreativeModeTabs;
 import com.fortressofnerditude.createbroadcast.item.ModItems;
+import com.simibubi.create.api.stress.BlockStressValues;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -50,6 +52,7 @@ public class CreateBroadcast {
 
         ModItems.ITEMS.register(modEventBus);
         ModBlocks.BLOCKS.register(modEventBus);
+        ModBlockEntities.BLOCK_ENTITIES.register(modEventBus);
 
 
         ModDataComponents.DATA_COMPONENT_TYPES.register(modEventBus);
@@ -62,7 +65,9 @@ public class CreateBroadcast {
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
-
+        event.enqueueWork(() -> {
+            BlockStressValues.IMPACTS.register(ModBlocks.TRANSMITTER.get(), () -> 16.0);
+        });
     }
 
     // Add the example block item to the building blocks tab

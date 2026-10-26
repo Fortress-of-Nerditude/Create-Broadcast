@@ -1,6 +1,7 @@
 package com.fortressofnerditude.createbroadcast.block;
 
 import com.fortressofnerditude.createbroadcast.CreateBroadcast;
+import com.fortressofnerditude.createbroadcast.block.custom.RadioTransmitter;
 import com.fortressofnerditude.createbroadcast.item.ModItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -17,7 +18,7 @@ public class ModBlocks {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(CreateBroadcast.MODID);
 
     public static final DeferredBlock<Block> TRANSMITTER = registerBlock("radio_transmitter",
-            () -> new Block(BlockBehaviour.Properties.of()
+            () -> new RadioTransmitter(BlockBehaviour.Properties.of()
                     .strength(4f).sound(SoundType.NETHERITE_BLOCK)));
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {

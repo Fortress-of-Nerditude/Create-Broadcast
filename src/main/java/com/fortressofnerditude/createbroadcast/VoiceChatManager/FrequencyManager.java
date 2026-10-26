@@ -1,20 +1,22 @@
 package com.fortressofnerditude.createbroadcast.VoiceChatManager;
 
 import com.fortressofnerditude.createbroadcast.Config;
+import com.fortressofnerditude.createbroadcast.CreateBroadcast;
 import com.fortressofnerditude.createbroadcast.component.ModDataComponents;
 import com.fortressofnerditude.createbroadcast.item.ModItems;
 import de.maxhenkel.voicechat.api.audiochannel.AudioChannel;
 import de.maxhenkel.voicechat.api.audiochannel.EntityAudioChannel;
 import de.maxhenkel.voicechat.api.events.MicrophonePacketEvent;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class FrequencyManager {
     public static final Map<Double, Map<Player, AudioChannel>> audioMap = new HashMap<>();
@@ -39,7 +41,7 @@ public class FrequencyManager {
         if (channel == null) {
             return;
         }
-        channel.setCategory("broadcast"); // The category of the audio channel
+        channel.setCategory("broadcast");
         channel.setDistance(48);
         frequencyMap.put(player, channel);
     }
@@ -78,26 +80,47 @@ public class FrequencyManager {
                     }
                 }
             }
+            Integer listeningRange = Config.TRANSMITTER_AUDIBLE.get();
+            Map<Vec3, Double> transmitters = TransmitterData.readTransmitters();
+            for (Map.Entry<Vec3, Double> entry : transmitters.entrySet()) {
+                Vec3 transmitterPosition = entry.getKey();
+                Double transmitterFrequency = entry.getValue();
+                if (Math.abs(sender.position().x - transmitterPosition.x) <= listeningRange &&
+                        Math.abs(sender.position().y - transmitterPosition.y) <= listeningRange &&
+                        Math.abs(sender.position().z - transmitterPosition.z) <= listeningRange) {
+                    int elevation = (int) transmitterPosition.y;
+                    Level level = sender.level();
+                    while (level.getBlockState(new BlockPos((int) transmitterPosition.x, (elevation + 1), (int) transmitterPosition.z)).is(Blocks.LIGHTNING_ROD)) {
+                        elevation += 1;
+                    }
+                    sendVoice(sender, transmitterFrequency, event, elevation * 5);
+                    CreateBroadcast.LOGGER.info("Elevation: " + elevation);
+                }
+            }
         }
     }
 
     public static void sendVoice(Player talkingPlayer, Double frequency, MicrophonePacketEvent event, Integer maxRange) {
         Map<Player, AudioChannel> frequencyMap = audioMap.get(frequency);
-        byte[] audio = event.getPacket().getOpusEncodedData();
-        for (Map.Entry<Player, AudioChannel> entry : frequencyMap.entrySet()) {
-            Player player = entry.getKey();
-            AudioChannel channel = entry.getValue();
-            if (channel != null && (!Objects.equals(talkingPlayer.getUUID().toString(), player.getUUID().toString()))) {
-                Vec3 sendLocation = talkingPlayer.position();
-                Vec3 receiveLocation = player.position();
-                if (Math.abs(sendLocation.x - receiveLocation.x) <= maxRange &&
-                Math.abs(sendLocation.y - receiveLocation.y) <= maxRange &&
-                Math.abs(sendLocation.z - receiveLocation.z) <= maxRange) {
-                    channel.send(audio);
-                } else if (maxRange == -1) {
-                    channel.send(audio);
-                }
-            };
+        if (frequencyMap != null) {
+            byte[] audio = event.getPacket().getOpusEncodedData();
+            for (Map.Entry<Player, AudioChannel> entry : frequencyMap.entrySet()) {
+                Player player = entry.getKey();
+                AudioChannel channel = entry.getValue();
+                if (channel != null && (!Objects.equals(talkingPlayer.getUUID().toString(), player.getUUID().toString()))) {
+                    Vec3 sendLocation = talkingPlayer.position();
+                    Vec3 receiveLocation = player.position();
+                    if (Math.abs(sendLocation.x - receiveLocation.x) <= maxRange &&
+                            Math.abs(sendLocation.y - receiveLocation.y) <= maxRange &&
+                            Math.abs(sendLocation.z - receiveLocation.z) <= maxRange) {
+                        channel.send(audio);
+                    } else if (maxRange == -1) {
+                        channel.send(audio);
+                    }
+                };
+            }
+        } else {
+            CreateBroadcast.LOGGER.info("Frequency Map Null");
         }
     }
 }

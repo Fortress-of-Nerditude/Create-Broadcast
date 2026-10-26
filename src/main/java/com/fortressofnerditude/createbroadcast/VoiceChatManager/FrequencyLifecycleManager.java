@@ -1,5 +1,6 @@
 package com.fortressofnerditude.createbroadcast.VoiceChatManager;
 
+import com.fortressofnerditude.createbroadcast.block.ModBlocks;
 import com.fortressofnerditude.createbroadcast.component.ModDataComponents;
 import com.fortressofnerditude.createbroadcast.item.ModItems;
 import net.minecraft.world.item.ItemStack;
@@ -22,6 +23,13 @@ public class FrequencyLifecycleManager {
             ItemStack currentItem = event.getEntity().getInventory().getItem(i);
             if (currentItem.is(ModItems.WALKIE) || currentItem.is(ModItems.BRASS_WALKIE) || currentItem.is(ModItems.ENDER_WALKIE)) {
                 currentItem.set(ModDataComponents.ACTIVE, false);
+                if (currentItem.get(ModDataComponents.FREQUENCY) == null) {
+                    currentItem.set(ModDataComponents.FREQUENCY, 87.0);
+                }
+            } else if (currentItem.is(ModBlocks.TRANSMITTER.asItem())) {
+                if (currentItem.get(ModDataComponents.FREQUENCY) == null) {
+                    currentItem.set(ModDataComponents.FREQUENCY, 87.0);
+                }
             }
         }
     }
