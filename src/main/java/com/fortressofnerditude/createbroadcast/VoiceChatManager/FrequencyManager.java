@@ -2,6 +2,9 @@ package com.fortressofnerditude.createbroadcast.VoiceChatManager;
 
 import com.fortressofnerditude.createbroadcast.Config;
 import com.fortressofnerditude.createbroadcast.CreateBroadcast;
+import com.fortressofnerditude.createbroadcast.VoiceChatManager.Transmitter.TransmitterData;
+import com.fortressofnerditude.createbroadcast.VoiceChatManager.Transmitter.TransmitterInfo;
+import com.fortressofnerditude.createbroadcast.block.entity.RadioTransmitterEntity;
 import com.fortressofnerditude.createbroadcast.component.ModDataComponents;
 import com.fortressofnerditude.createbroadcast.item.ModItems;
 import de.maxhenkel.voicechat.api.audiochannel.AudioChannel;
@@ -15,17 +18,16 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class FrequencyManager {
-    public static final Map<Double, Map<Player, AudioChannel>> audioMap = new HashMap<>();
+    public static final Map<Integer, Map<Player, AudioChannel>> audioMap = new HashMap<>();
 
-    public static void createFrequency(Double frequency) {
+    public static void createFrequency(Integer frequency) {
         audioMap.put(frequency, new HashMap<Player, AudioChannel>());
     }
 
-    public static void tuneIn(Player player, Double frequency) {
+    public static void tuneIn(Player player, Integer frequency) {
         Map<Player, AudioChannel> frequencyMap = audioMap.get(frequency);
         if (frequencyMap == null) {
             createFrequency(frequency);
@@ -46,7 +48,7 @@ public class FrequencyManager {
         frequencyMap.put(player, channel);
     }
 
-    public static void tuneOut(Player player, Double frequency) {
+    public static void tuneOut(Player player, Integer frequency) {
         Map<Player, AudioChannel> frequencyMap = audioMap.get(frequency);
         if (frequencyMap == null) {
             createFrequency(frequency);
@@ -81,10 +83,13 @@ public class FrequencyManager {
                 }
             }
             Integer listeningRange = Config.TRANSMITTER_AUDIBLE.get();
-            Map<Vec3, Double> transmitters = TransmitterData.readTransmitters();
-            for (Map.Entry<Vec3, Double> entry : transmitters.entrySet()) {
+            Map<Vec3, TransmitterInfo> transmitters = TransmitterData.readTransmitters();
+            for (Map.Entry<Vec3, TransmitterInfo> entry : transmitters.entrySet()) {
                 Vec3 transmitterPosition = entry.getKey();
-                Double transmitterFrequency = entry.getValue();
+                HashMap<String, Integer> transmitterDump = entry.getValue().dump();
+                Integer transmitterFrequency = transmitterDump.get("Frequency");
+                Integer transmitterRange = transmitterDump.get("Range");
+                Integer rpm = transmitterDump.get("RPM");
                 if (Math.abs(sender.position().x - transmitterPosition.x) <= listeningRange &&
                         Math.abs(sender.position().y - transmitterPosition.y) <= listeningRange &&
                         Math.abs(sender.position().z - transmitterPosition.z) <= listeningRange) {
@@ -93,14 +98,18 @@ public class FrequencyManager {
                     while (level.getBlockState(new BlockPos((int) transmitterPosition.x, (elevation + 1), (int) transmitterPosition.z)).is(Blocks.LIGHTNING_ROD)) {
                         elevation += 1;
                     }
-                    sendVoice(sender, transmitterFrequency, event, elevation * 5);
-                    CreateBroadcast.LOGGER.info("Elevation: " + elevation);
+                    if (rpm > 0) {
+                        sendVoice(sender, transmitterFrequency, event, transmitterRange);
+                        CreateBroadcast.LOGGER.info("Range: " + transmitterRange);
+                    } else {
+                        CreateBroadcast.LOGGER.info("No RPM @ " + transmitterPosition);
+                    }
                 }
             }
         }
     }
 
-    public static void sendVoice(Player talkingPlayer, Double frequency, MicrophonePacketEvent event, Integer maxRange) {
+    public static void sendVoice(Player talkingPlayer, Integer frequency, MicrophonePacketEvent event, Integer maxRange) {
         Map<Player, AudioChannel> frequencyMap = audioMap.get(frequency);
         if (frequencyMap != null) {
             byte[] audio = event.getPacket().getOpusEncodedData();

@@ -44,7 +44,7 @@ public class WalkieItem extends Item {
             item.set(ModDataComponents.ACTIVE, false);
         }
         if (item.get(ModDataComponents.FREQUENCY) == null) {
-            item.set(ModDataComponents.FREQUENCY, 87.0);
+            item.set(ModDataComponents.FREQUENCY, 87);
         }
 
         if (Boolean.TRUE.equals(item.get(ModDataComponents.ACTIVE))) {

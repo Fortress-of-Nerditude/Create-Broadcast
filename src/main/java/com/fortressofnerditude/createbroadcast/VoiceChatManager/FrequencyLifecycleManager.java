@@ -24,11 +24,11 @@ public class FrequencyLifecycleManager {
             if (currentItem.is(ModItems.WALKIE) || currentItem.is(ModItems.BRASS_WALKIE) || currentItem.is(ModItems.ENDER_WALKIE)) {
                 currentItem.set(ModDataComponents.ACTIVE, false);
                 if (currentItem.get(ModDataComponents.FREQUENCY) == null) {
-                    currentItem.set(ModDataComponents.FREQUENCY, 87.0);
+                    currentItem.set(ModDataComponents.FREQUENCY, 87);
                 }
             } else if (currentItem.is(ModBlocks.TRANSMITTER.asItem())) {
                 if (currentItem.get(ModDataComponents.FREQUENCY) == null) {
-                    currentItem.set(ModDataComponents.FREQUENCY, 87.0);
+                    currentItem.set(ModDataComponents.FREQUENCY, 87);
                 }
             }
         }

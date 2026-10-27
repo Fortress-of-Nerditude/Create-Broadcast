@@ -1,7 +1,6 @@
 package com.fortressofnerditude.createbroadcast.block.custom;
 
-import com.fortressofnerditude.createbroadcast.CreateBroadcast;
-import com.fortressofnerditude.createbroadcast.VoiceChatManager.TransmitterData;
+import com.fortressofnerditude.createbroadcast.VoiceChatManager.Transmitter.TransmitterData;
 import com.fortressofnerditude.createbroadcast.block.ModBlockEntities;
 import com.fortressofnerditude.createbroadcast.block.entity.RadioTransmitterEntity;
 import com.fortressofnerditude.createbroadcast.component.ModDataComponents;
@@ -19,8 +18,8 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import com.simibubi.create.content.kinetics.base.KineticBlock;
 
+import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
@@ -35,20 +34,21 @@ public class RadioTransmitter extends KineticBlock implements IBE<RadioTransmitt
     @Override
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
         super.setPlacedBy(level, pos, state, placer, stack);
-        TransmitterData.load().createTransmitter(Vec3.atLowerCornerOf(pos), stack.get(ModDataComponents.FREQUENCY));
+        if (level.isClientSide()) return;
+        TransmitterData transmitterData = level.getServer().overworld().getDataStorage().computeIfAbsent(new SavedData.Factory<>(TransmitterData::create, TransmitterData::load), "transmitters");
+        transmitterData.createTransmitter(Vec3.atLowerCornerOf(pos), stack.get(ModDataComponents.FREQUENCY));
     }
 
     @Override
     public void destroy(LevelAccessor level, BlockPos pos, BlockState state) {
         super.destroy(level, pos, state);
-        TransmitterData.load().destroyTransmitter(Vec3.atLowerCornerOf(pos));
+        if (level.isClientSide()) return;
+        TransmitterData transmitterData = level.getServer().overworld().getDataStorage().computeIfAbsent(new SavedData.Factory<>(TransmitterData::create, TransmitterData::load), "transmitters");
+        transmitterData.destroyTransmitter(Vec3.atLowerCornerOf(pos));
     }
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        if (stack.get(ModDataComponents.FREQUENCY) != null) {
-            stack.set(ModDataComponents.FREQUENCY, 87.0);
-        }
         tooltipComponents.add(Component.literal("Frequency: " + stack.get(ModDataComponents.FREQUENCY)));
 
         super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);

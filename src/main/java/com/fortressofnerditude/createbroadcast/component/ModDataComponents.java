@@ -16,8 +16,8 @@ public class ModDataComponents {
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> ACTIVE = register("active",
             builder -> builder.persistent(Codec.BOOL));
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Double>> FREQUENCY = register("frequency",
-            builder -> builder.persistent(Codec.DOUBLE));
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> FREQUENCY = register("frequency",
+            builder -> builder.persistent(Codec.INT));
 
     private static <T>DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name,
                                                                                           UnaryOperator<DataComponentType.Builder<T>> builderOperator) {
