@@ -24,8 +24,8 @@ public class Config {
             .defineInRange("transmitterAudibleRange", 4, 1, Integer.MAX_VALUE);
 
     public static final ModConfigSpec.IntValue TRANSMITTER_DIVISOR = BUILDER
-            .comment("Transmitter range is calculated from [RPM * [ELEVATION (From the highest lightning rod) / THIS NUMBER]")
-            .defineInRange("transmitterDivisor", 5, 1, Integer.MAX_VALUE);
+            .comment("Transmitter range is calculated from [RPM * [ELEVATION (From the highest lightning rod) / THIS NUMBER]. -1 for infinite")
+            .defineInRange("transmitterDivisor", 5, -1, Integer.MAX_VALUE);
 
     static final ModConfigSpec SPEC = BUILDER.build();
 }

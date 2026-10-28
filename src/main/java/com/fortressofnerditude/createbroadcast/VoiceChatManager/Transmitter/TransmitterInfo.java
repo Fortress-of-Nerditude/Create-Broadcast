@@ -1,5 +1,6 @@
 package com.fortressofnerditude.createbroadcast.VoiceChatManager.Transmitter;
 
+import com.fortressofnerditude.createbroadcast.Config;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -32,7 +33,11 @@ public class TransmitterInfo {
     }
 
     private void recalculateRange() {
-        range = Math.round(rpm * ((float) elevation / 5));
+        if (Config.TRANSMITTER_DIVISOR.get() == -1) {
+            range = -1;
+        } else {
+            range = Math.round(rpm * ((float) elevation / Config.TRANSMITTER_DIVISOR.get()));
+        }
     }
 
     public void updateRpm(Integer newRpm) {
